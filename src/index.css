@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+button {
+  background: initial;    
+  border: initial;
+  cursor: pointer;
+}
+
+textarea {
+  outline: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+}
+
+
+#root {
+ 
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  max-width: 860px;
+  margin-inline: auto;
+  padding-top: 50px;
+}
+
+.footer {}
+
+.header {
+  text-align: center;
+  padding-block: 30px;
+  border: 1px solid black;
+  border-radius: 8px 8px 0 0;
+}
+
+.logo {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.logo__comment {
+  font-weight: 500;
+  color: hsl(0, 0%, 40%);
+}
+
+.title {
+  margin-bottom: 10px;
+}
+.title__publicly {
+  font-style: italic;
+  color: hsl(0, 0%, 40%);
+}
+
+.feedback-form {}
+.feedback-form__textarea { 
+  resize: none;
+  width: 390px;
+  height: 100px;
+  padding: 10px 12px;
+  border-radius: 5px;
+}
+.feedback-form__placeholder {
+  display: block;
+}
+.feedback-form__count {
+  display: block;
+}
+.feedback-form__submit {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .1px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.feedbacks {}
+
+.feedback {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+}
+.feedback__button {
+  font-size: 14px;
+  font-weight: 600;
+}
+.feedback__icon {
+  display: block;
+}
+.feedback__badge-letter {
+  font-weight: 700;
+  padding: 10px;
+}
+.feedback__info {}
+.feedback__company {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .55555px;
+  text-transform: uppercase;
+}
+.feedback__message {}
+.feedback__age {}
+
+.hashtags {}
+
+.hashtag {
+
+}
+.hashtag__button {}
