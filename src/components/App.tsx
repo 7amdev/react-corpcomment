@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Feedbacks from "./Feedbacks";
+import Feedbacks, { Feedback } from "./Feedbacks";
 import Footer from "./Footer";
 import Hashtags from "./Hastags";
 import Header from "./Header";
 import { API_URL } from "../lib/constants";
 
 export default function App() {
-  const [feedbacks, setFeedbacks] = useState([]);
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
 
   useEffect(function () {
     fetch(`${API_URL}/feedbacks`)
@@ -16,8 +16,7 @@ export default function App() {
         }
         return response.json();
       })
-      .then(function (data) {
-        console.log(data);
+      .then(function (data: Feedback[]) {
         setFeedbacks(data);
       })
       .catch(function (error) {

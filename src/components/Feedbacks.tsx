@@ -1,4 +1,4 @@
-type Feedback = {
+export type Feedback = {
   id: string;
   badgeLetter: string;
   company: string;
@@ -16,7 +16,7 @@ export default function Feedbacks({ feedbacks }: FeedbacksProps) {
     <ol className="feedbacks">
       {feedbacks.map(function (feedback) {
         return (
-          <li className="feedback">
+          <li key={feedback.id} className="feedback">
             <button className="feedback__button">
               <svg
                 className="feedback__icon"
