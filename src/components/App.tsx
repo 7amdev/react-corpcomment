@@ -2,7 +2,9 @@ export default function App() {
   return (
     <div className="container">
       <footer className="footer">
-        &copy; Copyrights reserved to Alfredom.
+        <small className="footer__copy">
+          &copy; Copyrights reserved to Alfredom.
+        </small>
       </footer>
       <main>
         <header className="header">

@@ -65,7 +65,20 @@ main {
   padding-top: 50px;
 }
 
-.footer {}
+.footer {
+  position: relative;
+  padding-left: 12px;
+}
+.footer__copy {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  font-size: 12px;
+  width: 300px;
+  color: hsla(0, 0%, 70%, .8);
+  transform: rotate(270deg);
+  transform-origin: bottom left;
+}
 
 .header {
   position: relative;
