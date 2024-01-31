@@ -60,7 +60,7 @@ main {
 .container {
   display: flex;
   gap: 20px;
-  max-width: 920px;
+  max-width: 860px;
   margin-inline: auto;
   padding-top: 50px;
 }
@@ -220,14 +220,22 @@ main {
   gap: 10px;
   padding: 15px 30px 15px 30px;
   border-bottom: 1px solid hsl(0, 0%, 80%);
+  background-color: hsl(272, 10%, 95%);
+  cursor: pointer;
+  transition: all .2s
+}
+.feedback:hover,
+.feedback:focus {
+  background-color: #fff;
+  transform: translateX(5px);
 }
 .feedback__button {
   font-size: 12px;
   font-weight: 500;
   color: hsl(0, 0%, 45%);
-  line-height: .8;
+  line-height: 1;
   border-radius: 4px;
-  padding: 4px 6px 9px 6px;
+  padding: 4px 10px 9px 10px;
 }
 .feedback__button:hover,
 .feedback__button:focus {
@@ -235,8 +243,10 @@ main {
   color: hsl(0, 0%, 20%);
 }
 .feedback__icon {
-  width: 15px;
-  height: 15px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-inline: auto;
 }
 .feedback__icon > path {
   fill: hsl(0, 0%, 75%);
@@ -254,6 +264,7 @@ main {
 }
 .feedback__info {
   font-size: 14px;
+  flex-basis: 450px;
 }
 .feedback__company {
   font-size: 12px;
@@ -280,8 +291,10 @@ main {
   background-color: transparent;
 }
 .feedback__age {
+  flex-grow: 1;
   font-size: 12px;
   font-weight: 500;
+  text-align: right;
   color: hsl(0, 0%, 45%);
 }
 
