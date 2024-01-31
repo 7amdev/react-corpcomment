@@ -41,7 +41,9 @@ export default function App() {
         <ol className="feedbacks">
           <li className="feedback">
             <button className="feedback__button">
-              <i className="feedback__icon">^</i>
+              <svg className="feedback__icon">
+                <path d="M4 9H11L7.5 4.5L4 9Z" fill="currentColor"></path>
+              </svg>
               593
             </button>
             <p className="feedback__badge-letter">B</p>
@@ -57,10 +59,12 @@ export default function App() {
           </li>
           <li className="feedback">
             <button className="feedback__button">
-              <i className="feedback__icon">^</i>
+              <svg className="feedback__icon">
+                <path d="M4 9H11L7.5 4.5L4 9Z" fill="currentColor"></path>
+              </svg>
               298
             </button>
-            <p className="feedback__badge-letter">B</p>
+            <p className="feedback__badge-letter">M</p>
             <div className="feedback__info">
               <p className="feedback__company">McDonald's</p>
               <p className="feedback__message">
