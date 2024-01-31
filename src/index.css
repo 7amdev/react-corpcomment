@@ -45,8 +45,13 @@ h1 *::selection {
 body {
   font-family: 'Inter', sans-serif;
   height: 100vh;
+  background: linear-gradient(hsl(275, 30%, 50%), hsl(260, 43%, 40%));
 }
 
+main {
+  border-radius: 8px;
+  overflow: hidden;
+}
 
 #root {
  
@@ -75,6 +80,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
 }
 .header__background::selection {
   background-color: initial;
@@ -191,7 +197,9 @@ body {
   background-color: initial;
 }
 
-.feedbacks {}
+.feedbacks {
+  background-color: #fff;
+}
 
 .feedback {
   display: flex;
@@ -221,9 +229,26 @@ body {
 .feedback__message {}
 .feedback__age {}
 
-.hashtags {}
-
-.hashtag {
+.hashtags {
 
 }
-.hashtag__button {}
+
+.hashtag {
+}
+.hashtag__button {
+  font-size: 14px;
+  font-weight: 500;
+  color: hsla(0, 0%, 100%, .5);
+  padding: 8px 20px;
+  background-color: hsla(0, 0%, 100%, .09); 
+  border-radius: 1000px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all .2s;
+  outline: none;
+}
+.hashtag__button:hover,
+.hashtag__button:focus-within {
+  transform: scale(1.1);
+  color: #fff;
+}
