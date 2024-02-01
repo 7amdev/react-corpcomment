@@ -8,9 +8,18 @@ import Feedbacks from "./Feedbacks";
 
 export default function App() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
+  const [filter, setFilter] = useState("");
 
   const feedbacks_insert = function (feedback: Feedback) {
     setFeedbacks([...feedbacks, feedback]);
+  };
+
+  const feedbacks_get_companies = function (): string[] {
+    return feedbacks.reduce(function (companies: string[], item: Feedback) {
+      return companies.includes(item.company)
+        ? companies
+        : [...companies, item.company];
+    }, []);
   };
 
   const feedbacks_increase_upvote_count = function (feedback: Feedback): void {
@@ -57,17 +66,27 @@ export default function App() {
       });
   }, []);
 
+  const feedbacks_filtered = filter
+    ? feedbacks.filter(function (item) {
+        return filter && item.company.toLowerCase() === filter.toLowerCase();
+      })
+    : feedbacks;
+
   return (
     <div className="container">
       <Footer />
       <main>
         <Header feedbacks_insert={feedbacks_insert} />
         <Feedbacks
-          feedbacks={feedbacks}
+          feedbacks={feedbacks_filtered}
           increase_upvote={feedbacks_increase_upvote_count}
         />
       </main>
-      <Hashtags />
+      <Hashtags
+        companies={feedbacks_get_companies()}
+        filter={filter}
+        setFilter={setFilter}
+      />
     </div>
   );
 }

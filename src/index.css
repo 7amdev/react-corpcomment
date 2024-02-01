@@ -54,6 +54,7 @@ main {
 
 #root {
   background: linear-gradient(hsl(275, 30%, 50%), hsl(260, 43%, 40%));
+  min-height: 100vh;
 }
 
 .container {
@@ -327,6 +328,10 @@ main {
   cursor: pointer;
   transition: all .2s;
   outline: none;
+}
+.hashtag__button_active {
+  transform: scale(1.1);
+  color: #fff;
 }
 .hashtag__button:hover,
 .hashtag__button:focus-within {
