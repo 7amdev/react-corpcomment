@@ -45,7 +45,6 @@ h1 *::selection {
 body {
   font-family: 'Inter', sans-serif;
   height: 100vh;
-  background: linear-gradient(hsl(275, 30%, 50%), hsl(260, 43%, 40%));
 }
 
 main {
@@ -54,7 +53,7 @@ main {
 }
 
 #root {
- 
+  background: linear-gradient(hsl(275, 30%, 50%), hsl(260, 43%, 40%));
 }
 
 .container {
