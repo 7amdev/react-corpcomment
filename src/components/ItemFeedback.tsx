@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import { Feedback } from "../lib/types";
 
 type FeedbackProps = {
@@ -50,7 +50,7 @@ export default function ItemFeedback({
         </svg>
         {feedback.upvoteCount}
       </button>
-      <p className="feedback__badge-letter">B</p>
+      <p className="feedback__badge-letter">{feedback.badgeLetter}</p>
       <div className="feedback__info">
         <p className="feedback__company">{feedback.company}</p>
         <p className="feedback__message">{feedback.text}</p>
