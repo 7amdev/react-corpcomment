@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import Feedbacks, { Feedback } from "./Feedbacks";
 import Footer from "./Footer";
 import Hashtags from "./Hastags";
 import Header from "./Header";
 import { API_URL } from "../lib/constants";
+import { Feedback } from "../lib/types";
+import Feedbacks from "./Feedbacks";
 
 export default function App() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);

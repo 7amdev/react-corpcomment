@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import { Feedback } from "../lib/types";
 
 type FeedbackProps = {
@@ -11,19 +11,31 @@ export default function ItemFeedback({
   on_increase_upvote,
 }: FeedbackProps) {
   const [isDisabled, setIsDisabled] = useState(false);
+  const [expand, setExpand] = useState(false);
 
-  const on_click_hanlder = function (
+  const on_upvote_handler = function (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
+    e.stopPropagation();
     on_increase_upvote(feedback);
     setIsDisabled(true);
   };
 
+  const on_item_click_handler = function (
+    e: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) {
+    setExpand(!expand);
+  };
+
   return (
-    <li key={feedback.id} className="feedback">
+    <li
+      key={feedback.id}
+      className={`feedback ${expand && "feedback_expand"}`}
+      onClick={on_item_click_handler}
+    >
       <button
         className="feedback__button"
-        onClick={on_click_hanlder}
+        onClick={on_upvote_handler}
         disabled={isDisabled}
       >
         <svg

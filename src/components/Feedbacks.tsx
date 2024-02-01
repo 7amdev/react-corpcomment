@@ -10,12 +10,6 @@ export default function Feedbacks({
   feedbacks,
   increase_upvote,
 }: FeedbacksProps) {
-  const upvote_handler_create = function (feedback: Feedback) {
-    return function (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-      increase_upvote(feedback);
-    };
-  };
-
   return (
     <ol className="feedbacks">
       {feedbacks.map(function (feedback) {

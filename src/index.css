@@ -229,6 +229,9 @@ main {
   background-color: #fff;
   transform: translateX(5px);
 }
+.feedback_expand {
+  background-color: #fff;
+}
 .feedback__button {
   font-size: 12px;
   font-weight: 500;
@@ -285,6 +288,10 @@ main {
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 500;
+}
+.feedback_expand .feedback__info .feedback__message {
+  -webkit-line-clamp: initial;
+  -webkit-box-orient: initial;
 }
 .feedback__message::selection,
 .feedback__company::selection,
