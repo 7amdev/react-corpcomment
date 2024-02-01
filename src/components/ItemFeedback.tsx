@@ -55,7 +55,9 @@ export default function ItemFeedback({
         <p className="feedback__company">{feedback.company}</p>
         <p className="feedback__message">{feedback.text}</p>
       </div>
-      <p className="feedback__age">{`${feedback.daysAgo}d`}</p>
+      <p className="feedback__age">
+        {feedback.daysAgo > 0 ? feedback.daysAgo + "d" : "NEW"}
+      </p>
     </li>
   );
 }
