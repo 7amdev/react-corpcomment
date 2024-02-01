@@ -237,6 +237,12 @@ main {
   border-radius: 4px;
   padding: 4px 10px 9px 10px;
 }
+.feedback__button:disabled {
+  padding: 10px;
+}
+.feedback__button:disabled > .feedback__icon {
+  display: none;
+}
 .feedback__button:hover,
 .feedback__button:focus {
   background-color: hsl(0, 0%, 96%);
