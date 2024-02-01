@@ -1,4 +1,6 @@
 export default function Header() {
+  console.log("Header rendering...");
+
   return (
     <header className="header">
       <img

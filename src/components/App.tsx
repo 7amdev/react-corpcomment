@@ -8,6 +8,34 @@ import { API_URL } from "../lib/constants";
 export default function App() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
 
+  const feedbacks_increase_upvote_count = function (feedback: Feedback): void {
+    if (!feedback) return;
+
+    fetch(`${API_URL}/feedbacks/${feedback.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ upvoteCount: feedback.upvoteCount + 1 }),
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Response Error....");
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        for (let i = 0; i < feedbacks.length; i++) {
+          if (feedbacks[i].id !== data.id) continue;
+
+          feedbacks[i].upvoteCount += 1;
+          break;
+        }
+
+        setFeedbacks([...feedbacks]);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
   useEffect(function () {
     fetch(`${API_URL}/feedbacks`)
       .then(function (response) {
@@ -29,7 +57,10 @@ export default function App() {
       <Footer />
       <main>
         <Header />
-        <Feedbacks feedbacks={feedbacks} />
+        <Feedbacks
+          feedbacks={feedbacks}
+          increase_upvote={feedbacks_increase_upvote_count}
+        />
       </main>
       <Hashtags />
     </div>

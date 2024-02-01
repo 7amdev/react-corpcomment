@@ -9,15 +9,28 @@ export type Feedback = {
 
 type FeedbacksProps = {
   feedbacks: Feedback[];
+  increase_upvote: (feedback: Feedback) => void;
 };
 
-export default function Feedbacks({ feedbacks }: FeedbacksProps) {
+export default function Feedbacks({
+  feedbacks,
+  increase_upvote,
+}: FeedbacksProps) {
+  const upvote_handler_create = function (feedback: Feedback) {
+    return function (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+      increase_upvote(feedback);
+    };
+  };
+
   return (
     <ol className="feedbacks">
       {feedbacks.map(function (feedback) {
         return (
           <li key={feedback.id} className="feedback">
-            <button className="feedback__button">
+            <button
+              className="feedback__button"
+              onClick={upvote_handler_create(feedback)}
+            >
               <svg
                 className="feedback__icon"
                 width="15"
