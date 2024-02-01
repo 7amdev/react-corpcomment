@@ -9,6 +9,10 @@ import Feedbacks from "./Feedbacks";
 export default function App() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
 
+  const feedbacks_insert = function (feedback: Feedback) {
+    setFeedbacks([...feedbacks, feedback]);
+  };
+
   const feedbacks_increase_upvote_count = function (feedback: Feedback): void {
     if (!feedback) return;
 
@@ -57,7 +61,7 @@ export default function App() {
     <div className="container">
       <Footer />
       <main>
-        <Header />
+        <Header feedbacks_insert={feedbacks_insert} />
         <Feedbacks
           feedbacks={feedbacks}
           increase_upvote={feedbacks_increase_upvote_count}

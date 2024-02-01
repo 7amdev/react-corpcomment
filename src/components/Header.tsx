@@ -1,6 +1,11 @@
-export default function Header() {
-  console.log("Header rendering...");
+import { Feedback } from "../lib/types";
+import Form from "./Form";
 
+type HeaderProps = {
+  feedbacks_insert: (feedback: Feedback) => void;
+};
+
+export default function Header({ feedbacks_insert }: HeaderProps) {
   return (
     <header className="header">
       <img
@@ -18,19 +23,7 @@ export default function Header() {
       <h1 className="title">
         Give Feedback. <span className="title__publicly">Publicly.</span>
       </h1>
-      <form className="feedback-form feedback-form_invalid " action="#">
-        <textarea
-          id="feedback-input"
-          className="feedback-form__textarea"
-          spellCheck="false"
-          placeholder="."
-        />
-        <label htmlFor="feedback-input" className="feedback-form__placeholder">
-          Enter your feedback here, remenber to #hashtag the company
-        </label>
-        <span className="feedback-form__count">150</span>
-        <button className="feedback-form__submit">Submit</button>
-      </form>
+      <Form feedbacks_insert={feedbacks_insert} />
     </header>
   );
 }
