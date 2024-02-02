@@ -1,6 +1,8 @@
 # CorpComment App
 
-## Run
+An experiment built in React and Typescript to test and play with modern web technologies.
+
+## Running locally
 
 1. Install dependencies
 
@@ -21,7 +23,7 @@ npm run dev
 - [x] Create feedback
   - Saves data to a local server
   - Validates user feedback input
-  - Signals user if registatin is successfully or unsuccessfully
+  - Signals user if registration is successfull or unsuccessfull
   - Hide error messages after 2 seconds
 - [x] Upvote feedback
   - Send PATCH request to a server
@@ -32,6 +34,12 @@ npm run dev
 - main
 - version/only-props
 - version/with-zustand
+
+To contrast the code between branches, run the command bellow:
+
+```sh
+git checkout <branch-name>
+```
 
 ## Dependencies
 
