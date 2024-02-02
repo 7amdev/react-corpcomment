@@ -83,7 +83,7 @@ main {
 .header {
   position: relative;
   text-align: center;
-  padding-block: 30px;
+  padding: 30px 115px;
   border: 1px solid black;
   border-radius: 8px 8px 0 0;
   background-color: hsl(240, 10%, 10%);
