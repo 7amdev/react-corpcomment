@@ -2,6 +2,8 @@
 
 An experiment built in React and Typescript to test and play with modern web technologies.
 
+![JS IMAGE CARVER](public/preview.png)
+
 ## Running locally
 
 1. Install dependencies
