@@ -1,11 +1,16 @@
-import { Feedback } from "../lib/types";
+import { useContext } from "react";
+import { FeedbackContext } from "../contexts/FeedbackContextProvider";
 import Form from "./Form";
 
-type HeaderProps = {
-  feedbacks_insert: (feedback: Feedback) => void;
-};
+export default function Header() {
+  const context = useContext(FeedbackContext);
 
-export default function Header({ feedbacks_insert }: HeaderProps) {
+  if (!context) {
+    throw new Error(
+      "Check if component HEADER is a child of FeedbackContextProvider component"
+    );
+  }
+
   return (
     <header className="header">
       <img
@@ -23,7 +28,7 @@ export default function Header({ feedbacks_insert }: HeaderProps) {
       <h1 className="title">
         Give Feedback. <span className="title__publicly">Publicly.</span>
       </h1>
-      <Form feedbacks_insert={feedbacks_insert} />
+      <Form />
     </header>
   );
 }

@@ -1,23 +1,23 @@
-import { Feedback } from "../lib/types";
+import { useContext } from "react";
 import ItemFeedback from "./ItemFeedback";
+import { FeedbackContext } from "../contexts/FeedbackContextProvider";
 
-type FeedbacksProps = {
-  feedbacks: Feedback[];
-  increase_upvote: (feedback: Feedback) => void;
-};
+export default function Feedbacks() {
+  const context = useContext(FeedbackContext);
+  if (!context) {
+    throw new Error(
+      "Check if component FEEDBACKS is a child of FeedbackContextProvider component"
+    );
+  }
 
-export default function Feedbacks({
-  feedbacks,
-  increase_upvote,
-}: FeedbacksProps) {
   return (
     <ol className="feedbacks">
-      {feedbacks.map(function (feedback) {
+      {context.feedbacks_filtered.map(function (feedback) {
         return (
           <ItemFeedback
             key={feedback.id}
             feedback={feedback}
-            on_increase_upvote={increase_upvote}
+            on_increase_upvote={context.feedbacks_increase_upvote_count}
           />
         );
       })}

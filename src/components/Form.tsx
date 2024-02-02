@@ -1,19 +1,22 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { API_URL } from "../lib/constants";
 import { Feedback } from "../lib/types";
+import { FeedbackContext } from "../contexts/FeedbackContextProvider";
 
 const MAX_CHARACTERS = 150;
 
-type FormProps = {
-  feedbacks_insert: (feedback: Feedback) => void;
-};
-
-export default function Form({ feedbacks_insert }: FormProps) {
+export default function Form() {
   const [message, setMessage] = useState("");
   const [invalidForm, setInvalidForm] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const errorInterval = useRef(-1);
   const successInterval = useRef(-1);
+  const context = useContext(FeedbackContext);
+  if (!context) {
+    throw new Error(
+      "Check if component FORM is a child of FeedbackContextProvider component"
+    );
+  }
 
   const character_count = MAX_CHARACTERS - message.length;
 
@@ -34,6 +37,8 @@ export default function Form({ feedbacks_insert }: FormProps) {
       errorInterval.current = setInterval(function () {
         setInvalidForm(false);
       }, 2000);
+
+      console.warn("Company name is undefined or too small (<5 characters)");
 
       return;
     }
@@ -57,7 +62,7 @@ export default function Form({ feedbacks_insert }: FormProps) {
         return response.json();
       })
       .then(function (data: Feedback) {
-        feedbacks_insert(data);
+        context.feedbacks_insert(data);
         setMessage("");
 
         clearInterval(successInterval.current);
