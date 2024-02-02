@@ -14,20 +14,29 @@ export default function App() {
     setFeedbacks([...feedbacks, feedback]);
   };
 
-  const feedbacks_get_companies = function (): string[] {
-    return feedbacks.reduce(function (companies: string[], item: Feedback) {
-      return companies.includes(item.company)
-        ? companies
-        : [...companies, item.company];
-    }, []);
-  };
+  const feedbacks_filtered = filter
+    ? feedbacks.filter(function (item) {
+        return filter && item.company.toLowerCase() === filter.toLowerCase();
+      })
+    : feedbacks;
 
-  const feedbacks_increase_upvote_count = function (feedback: Feedback): void {
-    if (!feedback) return;
+  const feedbacks_companies = feedbacks
+    .map((item) => item.company)
+    .filter(function (item, index, arr) {
+      return arr.indexOf(item) === index;
+    });
 
-    fetch(`${API_URL}/feedbacks/${feedback.id}`, {
+  const feedbacks_upvote = function (id: string): void {
+    if (!id) return;
+
+    const index = feedbacks.findIndex(function (item) {
+      return item.id === id;
+    });
+    if (index === -1) return;
+
+    fetch(`${API_URL}/feedbacks/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ upvoteCount: feedback.upvoteCount + 1 }),
+      body: JSON.stringify({ upvoteCount: feedbacks[index].upvoteCount + 1 }),
     })
       .then(function (response) {
         if (!response.ok) {
@@ -35,13 +44,8 @@ export default function App() {
         }
         return response.json();
       })
-      .then(function (data) {
-        for (let i = 0; i < feedbacks.length; i++) {
-          if (feedbacks[i].id !== data.id) continue;
-
-          feedbacks[i].upvoteCount += 1;
-          break;
-        }
+      .then(function () {
+        feedbacks[index].upvoteCount += 1;
 
         setFeedbacks([...feedbacks]);
       })
@@ -66,12 +70,6 @@ export default function App() {
       });
   }, []);
 
-  const feedbacks_filtered = filter
-    ? feedbacks.filter(function (item) {
-        return filter && item.company.toLowerCase() === filter.toLowerCase();
-      })
-    : feedbacks;
-
   return (
     <div className="container">
       <Footer />
@@ -79,11 +77,11 @@ export default function App() {
         <Header feedbacks_insert={feedbacks_insert} />
         <Feedbacks
           feedbacks={feedbacks_filtered}
-          increase_upvote={feedbacks_increase_upvote_count}
+          on_upvote={feedbacks_upvote}
         />
       </main>
       <Hashtags
-        companies={feedbacks_get_companies()}
+        companies={feedbacks_companies}
         filter={filter}
         setFilter={setFilter}
       />
