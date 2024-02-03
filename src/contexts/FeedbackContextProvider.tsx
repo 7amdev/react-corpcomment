@@ -1,5 +1,5 @@
 import { createContext, useEffect, useMemo, useState } from "react";
-import { Feedback } from "../lib/types";
+import { Feedback, FeedbackPost } from "../lib/types";
 import { API_URL } from "../lib/constants";
 
 type FeedbackContextProviderProps = {
@@ -9,7 +9,7 @@ type FeedbackContextProviderProps = {
 type FeedbackProviderValue = {
   feedbacks_filtered: Feedback[];
   feedbacks_companies: string[];
-  feedbacks_insert: (feedback: Feedback) => void;
+  feedbacks_insert: (feedback: FeedbackPost) => Promise<void>;
   feedbacks_upvote: (id: string) => void;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
@@ -41,8 +41,24 @@ export default function FeedbackContextProvider({
     [feedbacks]
   );
 
-  const feedbacks_insert = function (feedback: Feedback): void {
-    setFeedbacks([...feedbacks, feedback]);
+  const feedbacks_insert = async function (
+    feedback: FeedbackPost
+  ): Promise<void> {
+    const response = await fetch(`${API_URL}/feedbacks`, {
+      method: "POST",
+      body: JSON.stringify(feedback),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Fetch response error");
+    }
+
+    const data: Feedback = await response.json();
+    setFeedbacks([...feedbacks, data]);
   };
 
   const feedbacks_upvote = function (id: string): void {

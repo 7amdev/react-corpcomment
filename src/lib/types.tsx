@@ -6,3 +6,5 @@ export type Feedback = {
   text: string;
   upvoteCount: number;
 };
+
+export type FeedbackPost = Omit<Feedback, "id">;

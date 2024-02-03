@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { API_URL } from "../lib/constants";
-import { Feedback } from "../lib/types";
+import { Feedback, FeedbackPost } from "../lib/types";
 import { FeedbackContext } from "../contexts/FeedbackContextProvider";
 
 const MAX_CHARACTERS = 150;
@@ -43,7 +43,7 @@ export default function Form() {
       return;
     }
 
-    const feedback_new = {
+    const feedback_new: FeedbackPost = {
       company: company_name,
       badgeLetter: company_name.charAt(0).toUpperCase(),
       upvoteCount: 0,
@@ -51,31 +51,25 @@ export default function Form() {
       text: message,
     };
 
-    fetch(`${API_URL}/feedbacks`, {
-      method: "POST",
-      body: JSON.stringify(feedback_new),
-    })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("Response error...");
-        }
-        return response.json();
-      })
-      .then(function (data: Feedback) {
-        context.feedbacks_insert(data);
-        setMessage("");
+    try {
+      context.feedbacks_insert(feedback_new);
+    } catch (error) {
+      console.error(error);
+      setInvalidForm(true);
+      errorInterval.current = setInterval(function () {
+        setInvalidForm(false);
+      }, 2000);
 
-        clearInterval(successInterval.current);
-        successInterval.current = setInterval(function () {
-          setValidForm(false);
-        }, 2000);
-        setValidForm(true);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+      return;
+    }
 
-    setInvalidForm(false);
+    setMessage("");
+
+    clearInterval(successInterval.current);
+    successInterval.current = setInterval(function () {
+      setValidForm(false);
+    }, 2000);
+    setValidForm(true);
   };
 
   const on_message_handler = function (
