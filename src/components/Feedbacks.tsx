@@ -17,7 +17,7 @@ export default function Feedbacks() {
           <ItemFeedback
             key={feedback.id}
             feedback={feedback}
-            on_increase_upvote={context.feedbacks_increase_upvote_count}
+            on_upvote={context.feedbacks_upvote}
           />
         );
       })}

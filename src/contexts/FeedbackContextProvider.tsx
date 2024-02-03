@@ -10,7 +10,7 @@ type FeedbackProviderValue = {
   feedbacks_filtered: Feedback[];
   feedbacks_companies: string[];
   feedbacks_insert: (feedback: Feedback) => void;
-  feedbacks_increase_upvote_count: (feedback: Feedback) => void;
+  feedbacks_upvote: (id: string) => void;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -41,12 +41,20 @@ export default function FeedbackContextProvider({
     setFeedbacks([...feedbacks, feedback]);
   };
 
-  const feedbacks_increase_upvote_count = function (feedback: Feedback): void {
-    if (!feedback) return;
+  const feedbacks_upvote = function (id: string): void {
+    if (!id) return;
+    const index = feedbacks.findIndex(function (item) {
+      return item.id === id;
+    });
+    if (!index) return;
 
-    fetch(`${API_URL}/feedbacks/${feedback.id}`, {
+    fetch(`${API_URL}/feedbacks/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ upvoteCount: feedback.upvoteCount + 1 }),
+      body: JSON.stringify({ upvoteCount: feedbacks[index].upvoteCount + 1 }),
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
     })
       .then(function (response) {
         if (!response.ok) {
@@ -54,13 +62,8 @@ export default function FeedbackContextProvider({
         }
         return response.json();
       })
-      .then(function (data) {
-        for (let i = 0; i < feedbacks.length; i++) {
-          if (feedbacks[i].id !== data.id) continue;
-
-          feedbacks[i].upvoteCount += 1;
-          break;
-        }
+      .then(function (data: Feedback) {
+        feedbacks[index].upvoteCount = data.upvoteCount;
 
         setFeedbacks([...feedbacks]);
       })
@@ -91,7 +94,7 @@ export default function FeedbackContextProvider({
         feedbacks_companies,
         feedbacks_filtered,
         feedbacks_insert,
-        feedbacks_increase_upvote_count,
+        feedbacks_upvote,
         filter,
         setFilter,
       }}

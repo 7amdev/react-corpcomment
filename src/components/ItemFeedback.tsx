@@ -3,13 +3,10 @@ import { Feedback } from "../lib/types";
 
 type FeedbackProps = {
   feedback: Feedback;
-  on_increase_upvote: (feedback: Feedback) => void;
+  on_upvote: (id: string) => void;
 };
 
-export default function ItemFeedback({
-  feedback,
-  on_increase_upvote,
-}: FeedbackProps) {
+export default function ItemFeedback({ feedback, on_upvote }: FeedbackProps) {
   const [isDisabled, setIsDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
 
@@ -17,7 +14,7 @@ export default function ItemFeedback({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.stopPropagation();
-    on_increase_upvote(feedback);
+    on_upvote(feedback.id);
     setIsDisabled(true);
   };
 
