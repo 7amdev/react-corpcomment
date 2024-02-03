@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { Feedback } from "../lib/types";
 import { API_URL } from "../lib/constants";
 
@@ -31,11 +31,15 @@ export default function FeedbackContextProvider({
       })
     : feedbacks;
 
-  const feedbacks_companies = feedbacks
-    .map((item) => item.company)
-    .filter(function (item: string, index: number, array: string[]) {
-      return array.indexOf(item) === index;
-    });
+  const feedbacks_companies = useMemo(
+    () =>
+      feedbacks
+        .map((item) => item.company)
+        .filter(function (item: string, index: number, array: string[]) {
+          return array.indexOf(item) === index;
+        }),
+    [feedbacks]
+  );
 
   const feedbacks_insert = function (feedback: Feedback): void {
     setFeedbacks([...feedbacks, feedback]);
