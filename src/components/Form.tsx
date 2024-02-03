@@ -1,7 +1,6 @@
-import { useContext, useRef, useState } from "react";
-import { API_URL } from "../lib/constants";
-import { Feedback } from "../lib/types";
-import { FeedbackContext } from "../contexts/FeedbackContextProvider";
+import { useRef, useState } from "react";
+import { useFeedbackStore } from "../stores/feedbackStore";
+import { FeedbackPost } from "../lib/types";
 
 const MAX_CHARACTERS = 150;
 
@@ -11,12 +10,8 @@ export default function Form() {
   const [validForm, setValidForm] = useState(false);
   const errorInterval = useRef(-1);
   const successInterval = useRef(-1);
-  const context = useContext(FeedbackContext);
-  if (!context) {
-    throw new Error(
-      "Check if component FORM is a child of FeedbackContextProvider component"
-    );
-  }
+
+  const feedbacks_insert = useFeedbackStore((state) => state.feedbacks_insert);
 
   const character_count = MAX_CHARACTERS - message.length;
 
@@ -43,7 +38,7 @@ export default function Form() {
       return;
     }
 
-    const feedback_new = {
+    const feedback_new: FeedbackPost = {
       company: company_name,
       badgeLetter: company_name.charAt(0).toUpperCase(),
       upvoteCount: 0,
@@ -51,31 +46,15 @@ export default function Form() {
       text: message,
     };
 
-    fetch(`${API_URL}/feedbacks`, {
-      method: "POST",
-      body: JSON.stringify(feedback_new),
-    })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("Response error...");
-        }
-        return response.json();
-      })
-      .then(function (data: Feedback) {
-        context.feedbacks_insert(data);
-        setMessage("");
+    feedbacks_insert(feedback_new);
 
-        clearInterval(successInterval.current);
-        successInterval.current = setInterval(function () {
-          setValidForm(false);
-        }, 2000);
-        setValidForm(true);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    setMessage("");
 
-    setInvalidForm(false);
+    clearInterval(successInterval.current);
+    successInterval.current = setInterval(function () {
+      setValidForm(false);
+    }, 2000);
+    setValidForm(true);
   };
 
   const on_message_handler = function (

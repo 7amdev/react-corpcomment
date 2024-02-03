@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Feedback } from "../lib/types";
+import { useFeedbackStore } from "../stores/feedbackStore";
 
 type FeedbackProps = {
   feedback: Feedback;
-  on_upvote: (id: string) => void;
 };
 
-export default function ItemFeedback({ feedback, on_upvote }: FeedbackProps) {
+export default function ItemFeedback({ feedback }: FeedbackProps) {
+  const feedbacks_upvote = useFeedbackStore((state) => state.feedbacks_upvote);
   const [isDisabled, setIsDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
 
@@ -14,7 +15,7 @@ export default function ItemFeedback({ feedback, on_upvote }: FeedbackProps) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.stopPropagation();
-    on_upvote(feedback.id);
+    feedbacks_upvote(feedback.id);
     setIsDisabled(true);
   };
 

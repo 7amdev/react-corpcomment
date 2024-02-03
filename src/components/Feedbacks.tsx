@@ -1,25 +1,23 @@
-import { useContext } from "react";
 import ItemFeedback from "./ItemFeedback";
-import { FeedbackContext } from "../contexts/FeedbackContextProvider";
+import { useFeedbackStore } from "../stores/feedbackStore";
+import { Feedback } from "../lib/types";
 
 export default function Feedbacks() {
-  const context = useContext(FeedbackContext);
-  if (!context) {
-    throw new Error(
-      "Check if component FEEDBACKS is a child of FeedbackContextProvider component"
-    );
-  }
+  const feedbacks: Feedback[] = useFeedbackStore((state) => state.feedbacks);
+  const company_filter: string = useFeedbackStore(
+    (state) => state.company_filter
+  );
+
+  const feedbacks_filtered = company_filter
+    ? feedbacks.filter(function (item: Feedback) {
+        return item.company.toLowerCase() === company_filter.toLowerCase();
+      })
+    : feedbacks;
 
   return (
     <ol className="feedbacks">
-      {context.feedbacks_filtered.map(function (feedback) {
-        return (
-          <ItemFeedback
-            key={feedback.id}
-            feedback={feedback}
-            on_upvote={context.feedbacks_upvote}
-          />
-        );
+      {feedbacks_filtered.map(function (feedback) {
+        return <ItemFeedback key={feedback.id} feedback={feedback} />;
       })}
     </ol>
   );
