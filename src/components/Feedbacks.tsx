@@ -1,18 +1,18 @@
 import { useContext } from "react";
 import ItemFeedback from "./ItemFeedback";
-import { FeedbackContext } from "../contexts/FeedbackContextProvider";
+import { Context } from "../contexts/context";
 
 export default function Feedbacks() {
-  const context = useContext(FeedbackContext);
+  const context = useContext(Context);
   if (!context) {
     throw new Error(
-      "Check if component FEEDBACKS is a child of FeedbackContextProvider component"
+      "Check if component <Feedbacks /> is a child of FeedbackProvider component"
     );
   }
 
   return (
     <ol className="feedbacks">
-      {context.feedbacks_filtered.map(function (feedback) {
+      {context.feedbacks_filter_by_company.map(function (feedback) {
         return (
           <ItemFeedback
             key={feedback.id}

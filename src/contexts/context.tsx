@@ -1,31 +1,16 @@
 import { createContext, useEffect, useMemo, useState } from "react";
-import { Feedback, FeedbackPost } from "../lib/types";
+import { ContextProps, Feedback, FeedbackPost } from "../lib/types";
 import { API_URL } from "../lib/constants";
 
-type FeedbackContextProviderProps = {
-  children: React.ReactNode;
-};
+export const Context = createContext<ContextProps | null>(null);
 
-type FeedbackProviderValue = {
-  feedbacks_filtered: Feedback[];
-  feedbacks_companies: string[];
-  feedbacks_insert: (feedback: FeedbackPost) => Promise<void>;
-  feedbacks_upvote: (id: string) => void;
-  filter: string;
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const FeedbackContext = createContext<FeedbackProviderValue | null>(
-  null
-);
-
-export default function FeedbackContextProvider({
+const FeedbackProvider: React.FC<{ children: React.ReactNode }> = function ({
   children,
-}: FeedbackContextProviderProps): React.ReactNode {
+}) {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [filter, setFilter] = useState("");
 
-  const feedbacks_filtered: Feedback[] = filter
+  const feedbacks_filter_by_company: Feedback[] = filter
     ? feedbacks.filter(function (item) {
         return filter && item.company.toLowerCase() === filter.toLowerCase();
       })
@@ -109,17 +94,20 @@ export default function FeedbackContextProvider({
   }, []);
 
   return (
-    <FeedbackContext.Provider
+    <Context.Provider
       value={{
+        feedbacks,
         feedbacks_companies,
-        feedbacks_filtered,
+        feedbacks_filter_by_company,
+        filter,
         feedbacks_insert,
         feedbacks_upvote,
-        filter,
         setFilter,
       }}
     >
       {children}
-    </FeedbackContext.Provider>
+    </Context.Provider>
   );
-}
+};
+
+export default FeedbackProvider;

@@ -1,7 +1,6 @@
 import { useContext, useRef, useState } from "react";
-import { API_URL } from "../lib/constants";
-import { Feedback, FeedbackPost } from "../lib/types";
-import { FeedbackContext } from "../contexts/FeedbackContextProvider";
+import { FeedbackPost } from "../lib/types";
+import { Context } from "../contexts/context";
 
 const MAX_CHARACTERS = 150;
 
@@ -11,10 +10,10 @@ export default function Form() {
   const [validForm, setValidForm] = useState(false);
   const errorInterval = useRef(-1);
   const successInterval = useRef(-1);
-  const context = useContext(FeedbackContext);
+  const context = useContext(Context);
   if (!context) {
     throw new Error(
-      "Check if component FORM is a child of FeedbackContextProvider component"
+      "Check if component <Form> is a child of <FeedbackProvider> component"
     );
   }
 

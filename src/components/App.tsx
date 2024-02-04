@@ -2,19 +2,19 @@ import Footer from "./Footer";
 import Hashtags from "./Hastags";
 import Header from "./Header";
 import Feedbacks from "./Feedbacks";
-import FeedbackContextProvider from "../contexts/FeedbackContextProvider";
+import FeedbackProvider from "../contexts/context";
 
 export default function App() {
   return (
     <div className="container">
       <Footer />
-      <FeedbackContextProvider>
+      <FeedbackProvider>
         <main>
           <Header />
           <Feedbacks />
         </main>
         <Hashtags />
-      </FeedbackContextProvider>
+      </FeedbackProvider>
     </div>
   );
 }
