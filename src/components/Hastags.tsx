@@ -1,25 +1,20 @@
-import { useContext } from "react";
-import { FeedbackContext } from "../contexts/feedbackContext";
+import { useFeedbackContext } from "../lib/hooks";
 
 export default function Hashtags() {
-  const context = useContext(FeedbackContext);
-  if (!context) {
-    throw new Error(
-      "Check if component <Hastags /> is a child of FeedbackProvider component"
-    );
-  }
+  const { filter, setFilter, feedbacks_companies } =
+    useFeedbackContext("Hashtags");
 
   const on_click_handler = function (company: string) {
-    if (context.filter === company) {
-      context.setFilter("");
+    if (filter === company) {
+      setFilter("");
       return;
     }
-    context.setFilter(company);
+    setFilter(company);
   };
 
   return (
     <ul className="hashtags">
-      {context.feedbacks_companies.map(function (company) {
+      {feedbacks_companies.map(function (company) {
         return (
           <li
             key={company}
@@ -28,7 +23,7 @@ export default function Hashtags() {
           >
             <button
               className={`hashtag__button ${
-                context.filter === company ? "hashtag__button_active" : ""
+                filter === company ? "hashtag__button_active" : ""
               }`}
             >
               #{company}

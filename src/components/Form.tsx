@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { FeedbackPost } from "../lib/types";
 import { FeedbackContext } from "../contexts/feedbackContext";
+import { useFeedbackContext } from "../lib/hooks";
 
 const MAX_CHARACTERS = 150;
 
@@ -10,12 +11,7 @@ export default function Form() {
   const [validForm, setValidForm] = useState(false);
   const errorInterval = useRef(-1);
   const successInterval = useRef(-1);
-  const context = useContext(FeedbackContext);
-  if (!context) {
-    throw new Error(
-      "Check if component <Form> is a child of <FeedbackProvider> component"
-    );
-  }
+  const { feedbacks_insert } = useFeedbackContext("Form");
 
   const character_count = MAX_CHARACTERS - message.length;
 
@@ -51,7 +47,7 @@ export default function Form() {
     };
 
     try {
-      context.feedbacks_insert(feedback_new);
+      feedbacks_insert(feedback_new);
     } catch (error) {
       console.error(error);
       setInvalidForm(true);
