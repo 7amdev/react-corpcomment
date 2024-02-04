@@ -6,7 +6,7 @@ export default function Feedbacks() {
   const context = useContext(Context);
   if (!context) {
     throw new Error(
-      "Check if component <Feedbacks /> is a child of FeedbackProvider component"
+      "Check if component <Feedbacks> is a child of <FeedbackProvider> component"
     );
   }
 

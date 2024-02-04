@@ -48,10 +48,11 @@ const FeedbackProvider: React.FC<{ children: React.ReactNode }> = function ({
 
   const feedbacks_upvote = function (id: string): void {
     if (!id) return;
+
     const index = feedbacks.findIndex(function (item) {
       return item.id === id;
     });
-    if (!index) return;
+    if (index === -1) return;
 
     fetch(`${API_URL}/feedbacks/${id}`, {
       method: "PATCH",

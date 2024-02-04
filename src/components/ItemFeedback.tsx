@@ -14,6 +14,7 @@ export default function ItemFeedback({ feedback, on_upvote }: FeedbackProps) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.stopPropagation();
+
     on_upvote(feedback.id);
     setIsDisabled(true);
   };
