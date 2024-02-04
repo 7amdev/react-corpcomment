@@ -7,7 +7,7 @@ export type Feedback = {
   upvoteCount: number;
 };
 
-export type ContextProps = {
+export type FeedbackContextProps = {
   feedbacks: Feedback[];
   feedbacks_companies: string[];
   feedbacks_filter_by_company: Feedback[];

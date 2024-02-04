@@ -2,7 +2,7 @@ import Footer from "./Footer";
 import Hashtags from "./Hastags";
 import Header from "./Header";
 import Feedbacks from "./Feedbacks";
-import FeedbackProvider from "../contexts/context";
+import FeedbackProvider from "../contexts/feedbackContext";
 
 export default function App() {
   return (

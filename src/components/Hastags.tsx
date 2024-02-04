@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { Context } from "../contexts/context";
+import { FeedbackContext } from "../contexts/feedbackContext";
 
 export default function Hashtags() {
-  const context = useContext(Context);
+  const context = useContext(FeedbackContext);
   if (!context) {
     throw new Error(
       "Check if component <Hastags /> is a child of FeedbackProvider component"

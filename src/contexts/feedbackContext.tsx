@@ -1,8 +1,8 @@
 import { createContext, useEffect, useMemo, useState } from "react";
-import { ContextProps, Feedback, FeedbackPost } from "../lib/types";
+import { Feedback, FeedbackContextProps, FeedbackPost } from "../lib/types";
 import { API_URL } from "../lib/constants";
 
-export const Context = createContext<ContextProps | null>(null);
+export const FeedbackContext = createContext<FeedbackContextProps | null>(null);
 
 const FeedbackProvider: React.FC<{ children: React.ReactNode }> = function ({
   children,
@@ -95,7 +95,7 @@ const FeedbackProvider: React.FC<{ children: React.ReactNode }> = function ({
   }, []);
 
   return (
-    <Context.Provider
+    <FeedbackContext.Provider
       value={{
         feedbacks,
         feedbacks_companies,
@@ -107,7 +107,7 @@ const FeedbackProvider: React.FC<{ children: React.ReactNode }> = function ({
       }}
     >
       {children}
-    </Context.Provider>
+    </FeedbackContext.Provider>
   );
 };
 
